@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --color-salmon-50: #fff5f3;
+  --color-salmon-100: #ffe7e2;
+  --color-salmon-200: #ffd0c7;
+  --color-salmon-300: #ffb0a2;
+  --color-salmon-400: #fb8a76;
+  --color-salmon-500: #f26b5b;
+  --color-salmon-600: #de4d3c;
+  --color-salmon-700: #b93b2d;
+  --color-salmon-800: #983429;
+  --color-salmon-900: #7d3027;
+}
+
+@layer base {
+  body {
+    @apply bg-stone-50 text-stone-800 antialiased;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-2xl border border-stone-200 bg-white shadow-sm;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-stone-700;
+  }
+  .hint {
+    @apply mt-1 text-xs text-stone-500;
+  }
+  .input {
+    @apply w-full rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm text-stone-800 shadow-xs outline-none transition placeholder:text-stone-400 focus:border-salmon-400 focus:ring-3 focus:ring-salmon-100;
+  }
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-salmon-500 text-white shadow-sm hover:bg-salmon-600;
+  }
+  .btn-secondary {
+    @apply border border-stone-300 bg-white text-stone-700 hover:border-salmon-300 hover:bg-salmon-50;
+  }
+  .btn-ghost {
+    @apply px-2.5 text-stone-500 hover:bg-stone-100 hover:text-stone-800;
+  }
+  .chip {
+    @apply inline-flex cursor-pointer items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm font-medium transition select-none;
+  }
+  .chip-off {
+    @apply border-stone-300 bg-white text-stone-600 hover:border-salmon-300;
+  }
+  .chip-on {
+    @apply border-salmon-500 bg-salmon-50 text-salmon-700;
+  }
+}
