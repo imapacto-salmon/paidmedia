@@ -54,11 +54,20 @@ export const shareLink = (conn: Connection) =>
 export function remoteBackend(conn: Connection): Backend {
   // Apps Script no acepta peticiones con preflight, por eso se manda text/plain.
   const call = async <T>(body: Record<string, unknown>): Promise<T> => {
-    const res = await fetch(conn.url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ ...body, key: conn.key }),
-    })
+    let res: Response
+    try {
+      res = await fetch(conn.url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ ...body, key: conn.key }),
+      })
+    } catch {
+      // El navegador no pudo leer la respuesta: casi siempre Google pidió iniciar sesión (acceso mal configurado).
+      throw new Error(
+        'No se pudo leer la hoja. Abre la URL del script en una ventana de incógnito: si pide iniciar sesión, en Apps Script ve a ' +
+          'Implementar → Gestionar implementaciones → Editar y pon “Quién tiene acceso: Cualquier persona”.',
+      )
+    }
     if (!res.ok) throw new Error(`La hoja respondió ${res.status}`)
     let data: { ok: boolean; error?: string } & T
     try {
