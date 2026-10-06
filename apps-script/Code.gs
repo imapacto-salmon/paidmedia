@@ -11,6 +11,12 @@
  *
  * Clave opcional: en Configuración del proyecto → Propiedades del script agrega
  * KEY = <una clave>. Si existe, la app la tiene que mandar en cada petición.
+ *
+ * Si el script se creó aparte (en script.google.com y no desde la hoja), agrega también
+ * SHEET_ID = <el ID de la hoja> (lo que va entre /d/ y /edit en su URL).
+ *
+ * Para revisar que todo esté bien, abre la URL /exec en una ventana de incógnito:
+ * debe mostrar {"ok":true,...} con el nombre de la hoja.
  */
 
 var SHEET_ADS = 'Anuncios'
@@ -44,10 +50,23 @@ var COLS = [
 var LOG_HEADERS = ['Fecha', 'Quién', 'Equipo', 'ID anuncio', 'Anuncio', 'Acción', 'Detalle', 'Cambios (JSON)']
 
 function doGet() {
-  return json({ ok: true, message: 'Bitácora de Pauta conectada. Usa la app web para ver los anuncios.' })
+  try {
+    return json({ ok: true, message: 'Bitácora de Pauta conectada.', sheet: spreadsheet().getName() })
+  } catch (err) {
+    return json({ ok: false, error: String(err && err.message || err) })
+  }
 }
 
 function doPost(e) {
+  // Cualquier error se regresa como JSON: si el script truena, la app ve el mensaje en vez de "Failed to fetch".
+  try {
+    return handle(e)
+  } catch (err) {
+    return json({ ok: false, error: 'Error en el script: ' + String(err && err.message || err) })
+  }
+}
+
+function handle(e) {
   var body
   try {
     body = JSON.parse(e.postData.contents)
@@ -81,7 +100,7 @@ function list() {
     .filter(function (r) { return r.join('') !== '' })
     .map(function (r) { return rowToAd(head, r) })
     .filter(function (a) { return a.id })
-  return { ok: true, title: SpreadsheetApp.getActive().getName(), ads: ads, history: readHistory() }
+  return { ok: true, title: spreadsheet().getName(), ads: ads, history: readHistory() }
 }
 
 function save(ad, base, entry) {
@@ -128,8 +147,16 @@ function bulk(ads, entry) {
 
 // ---------- Hoja ----------
 
+/** La hoja donde vive el script, o la de la propiedad SHEET_ID si el script se creó aparte. */
+function spreadsheet() {
+  var id = PropertiesService.getScriptProperties().getProperty('SHEET_ID')
+  var ss = id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActive()
+  if (!ss) throw new Error('El script no está dentro de una hoja. Créalo desde la hoja (Extensiones → Apps Script) o agrega la propiedad SHEET_ID.')
+  return ss
+}
+
 function adsSheet() {
-  var ss = SpreadsheetApp.getActive()
+  var ss = spreadsheet()
   var sheet = ss.getSheetByName(SHEET_ADS)
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_ADS)
@@ -142,7 +169,7 @@ function adsSheet() {
 }
 
 function logSheet() {
-  var ss = SpreadsheetApp.getActive()
+  var ss = spreadsheet()
   var sheet = ss.getSheetByName(SHEET_LOG)
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_LOG)

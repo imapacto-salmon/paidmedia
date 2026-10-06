@@ -195,6 +195,15 @@ El script crea solo las pestañas **Anuncios** e **Historial**. Se pueden ver y 
 editar desde la app para que quede el historial. Si cambias `Code.gs`, publica una versión nueva en
 **Implementar → Gestionar implementaciones → Editar → Nueva versión** para conservar la misma URL.
 
+**Si la app dice que no puede leer la hoja (“Failed to fetch”):**
+
+1. Abre la URL `/exec` en una ventana de incógnito. Debe mostrar `{"ok":true, … "sheet":"Bitácora · …"}`.
+2. Si pide iniciar sesión: **Implementar → Gestionar implementaciones → Editar** y pon *Quién tiene acceso: Cualquier persona*.
+   Si esa opción no aparece, el administrador de Google Workspace la tiene bloqueada para la organización.
+3. Si muestra `"ok":false` con un error, ese es el problema. El más común: el script se creó en script.google.com y no
+   desde la hoja. Créalo desde la hoja o agrega la propiedad `SHEET_ID`.
+4. Si cambiaste `Code.gs`, publica una **Nueva versión** de la implementación; si no, sigue corriendo la anterior.
+
 > **Acceso:** no hay login. Cualquier persona con el link (URL + clave) puede ver y editar la bitácora de ese cliente,
 > así que compártelo solo con su equipo. Si se filtra, cambia `KEY` en las propiedades del script y vuelve a
 > compartir el link. El nombre que pone cada persona solo sirve para el historial; no es una contraseña.
