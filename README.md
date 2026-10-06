@@ -156,6 +156,19 @@ Control de todos los anuncios que están dados de alta en pauta, compartido entr
 Si la bitácora está vacía, el botón **“Cargar pauta de Rhino Performance”** carga los 29 anuncios de
 `src/bitacora/seed/rhino.tsv`.
 
+### Diseño y logos
+
+La Bitácora tiene su propio look: fondo negro y escala de grises (`src/bitacora/theme.css`), con los logos de
+Impacto Salmón y del cliente en el encabezado y en “¿Quién eres?”. El Brief de Artes no cambia.
+
+Para agregar el logo de otro cliente:
+
+1. Guarda el logo en blanco sobre fondo transparente (PNG) en `public/logos/`, por ejemplo `public/logos/nuevo-cliente.png`.
+2. Agrégalo a `CLIENT_LOGOS` en `src/bitacora/config.ts`. La llave es el nombre del cliente en minúsculas, igual que en
+   el título de la hoja (`Bitácora · Nuevo Cliente` → `'nuevo cliente'`).
+
+Si un cliente no tiene logo, se muestra su nombre en texto.
+
 ### Dónde se guardan los datos: una Google Sheet por cliente
 
 La app es estática (GitHub Pages), así que los datos compartidos viven en una Google Sheet de Impacto Salmón,
@@ -192,10 +205,12 @@ editar desde la app para que quede el historial. Si cambias `Code.gs`, publica u
 bitacora/index.html          ← entrada de la página
 src/bitacora/
   App.tsx                    ← lista agrupada, filtros, resumen
-  config.ts                  ← estatus, plataformas y etiquetas (editable)
+  theme.css                  ← fondo negro y escala de grises
+  config.ts                  ← estatus, plataformas, etiquetas y logos de clientes (editable)
   components/                ← tarjeta, editor, diálogos
   lib/ads.ts                 ← importar (TSV), exportar (CSV), historial
   lib/api.ts                 ← conexión con la hoja / modo local
   seed/rhino.tsv             ← pauta inicial de RHINO Performance
+public/logos/                ← logos en blanco (Impacto Salmón y clientes)
 apps-script/Code.gs          ← backend para la Google Sheet
 ```

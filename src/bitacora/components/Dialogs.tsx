@@ -4,7 +4,7 @@ import { parseTsv, rowsToAds } from '../lib/ads'
 import { shareLink, type Connection } from '../lib/api'
 import type { Ad, Who } from '../types'
 import { Modal } from './ui'
-import { Segmented } from '../../components/ui'
+import { TeamLogo } from './Logos'
 
 export function WhoDialog({ who, client, onSave, onClose }: { who: Who | null; client: string; onSave: (w: Who) => void; onClose?: () => void }) {
   const teams = [AGENCY, client || 'Cliente']
@@ -27,7 +27,21 @@ export function WhoDialog({ who, client, onSave, onClose }: { who: Who | null; c
       </label>
       <div className="mt-4">
         <span className="label">Equipo</span>
-        <Segmented value={team} onChange={setTeam} options={teams.map((t) => ({ value: t, label: t }))} />
+        <div className="grid grid-cols-2 gap-2">
+          {teams.map((t) => (
+            <button
+              key={t}
+              type="button"
+              onClick={() => setTeam(t)}
+              aria-pressed={team === t}
+              className={`flex h-24 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border bg-black px-3 transition ${
+                team === t ? 'border-stone-900 ring-2 ring-stone-600' : 'border-stone-200 opacity-50 hover:opacity-80'
+              }`}
+            >
+              <TeamLogo team={t} className={t === AGENCY ? 'h-12' : 'h-6'} />
+            </button>
+          ))}
+        </div>
       </div>
     </Modal>
   )

@@ -1,0 +1,63 @@
+/*
+ * Tema de la Bitácora de Pauta: fondo negro y escala de grises.
+ *
+ * Se aplica con <html class="bitacora"> y reutiliza las mismas clases de Tailwind que el Brief,
+ * pero redefine sus colores:
+ *   - La escala `stone` está invertida: stone-50 es casi negro y stone-900 casi blanco.
+ *   - `white` es el gris oscuro de las tarjetas.
+ *   - `salmon` (el acento del Brief) pasa a grises; salmon-500 es el botón principal blanco.
+ *   - amber, rose y emerald se oscurecen para avisos (pendientes, errores, conexión).
+ */
+html.bitacora {
+  color-scheme: dark;
+
+  --color-white: #111111;
+
+  --color-stone-50: #050505;
+  --color-stone-100: #1a1a1a;
+  --color-stone-200: #2a2a2a;
+  --color-stone-300: #3d3d3d;
+  --color-stone-400: #6e6e6e;
+  --color-stone-500: #9a9a9a;
+  --color-stone-600: #bdbdbd;
+  --color-stone-700: #d6d6d6;
+  --color-stone-800: #e8e8e8;
+  --color-stone-900: #fafafa;
+
+  --color-salmon-50: #171717;
+  --color-salmon-100: #242424;
+  --color-salmon-200: #333333;
+  --color-salmon-300: #5a5a5a;
+  --color-salmon-400: #8a8a8a;
+  --color-salmon-500: #f2f2f2;
+  --color-salmon-600: #ffffff;
+  --color-salmon-700: #e6e6e6;
+  --color-salmon-800: #f0f0f0;
+  --color-salmon-900: #fafafa;
+
+  --color-amber-50: #1f1706;
+  --color-amber-200: #4a3510;
+  --color-amber-300: #5c4314;
+  --color-amber-600: #fbbf24;
+  --color-amber-700: #fcd34d;
+  --color-amber-800: #fde68a;
+  --color-amber-900: #fef3c7;
+
+  --color-rose-50: #24090e;
+  --color-rose-200: #4c1d24;
+  --color-rose-600: #fb7185;
+  --color-rose-700: #fda4af;
+  --color-rose-800: #fecdd3;
+
+  --color-emerald-50: #0b1a12;
+  --color-emerald-700: #86efac;
+}
+
+html.bitacora body {
+  background: #000;
+}
+
+html.bitacora ::selection {
+  background: #fafafa;
+  color: #000;
+}
