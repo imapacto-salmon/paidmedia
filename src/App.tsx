@@ -47,6 +47,9 @@ export default function App() {
               </div>
             </div>
             <div className="flex items-center gap-1">
+              <a className="btn btn-ghost text-xs" href={`${import.meta.env.BASE_URL}bitacora/`} title="Bitácora de Pauta">
+                Bitácora
+              </a>
               <span className="hidden text-xs text-stone-400 sm:inline">
                 {savedAt ? `Borrador guardado ${savedAt.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' })}` : ''}
               </span>

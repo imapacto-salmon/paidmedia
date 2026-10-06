@@ -1,4 +1,12 @@
-# Brief de Artes · Impacto Salmón
+# Paid Media · Impacto Salmón
+
+Dos herramientas en el mismo sitio:
+
+- **Brief de Artes** (`/`): wizard para pedir artes a diseño y generar el brief en PDF.
+- **Bitácora de Pauta** (`/bitacora/`): control de todos los anuncios dados de alta en pauta, compartido con el cliente.
+  Ver [Bitácora de Pauta](#bitácora-de-pauta).
+
+## Brief de Artes
 
 Mini webapp que guía a Carlos, Harumi y Emma para pedir artes a diseño y genera un **brief en PDF**
 claro y completo, sin ambigüedades del tipo “¿2 versiones son 2 diseños o 2 tamaños?”.
@@ -121,4 +129,73 @@ src/
   pdf/           ← documento PDF (react-pdf) y descarga
   lib/           ← conteos, validaciones, compresión de imágenes, geometría de siluetas
   state/         ← estado y autoguardado
+```
+
+## Bitácora de Pauta
+
+Control de todos los anuncios que están dados de alta en pauta, compartido entre Impacto Salmón y el cliente
+(por ejemplo, RHINO Performance). Los dos equipos pueden editar.
+
+- **Organizada como en Ads Manager:** Campaña → Conjunto de anuncios → Anuncio.
+- **Por anuncio:** creativo, copy y video actualizado, copy en pauta, link, presupuesto, keyword del chatbot,
+  fecha de lanzamiento, link de preview y notas.
+- **Estatus que cualquiera puede cambiar con un clic:**
+  - *En pauta:* Activo, Por lanzar, Pausado, Desactivado.
+  - *Prueba:* Sin probar, En prueba, Probado · funciona, Probado · no funcionó.
+- **Pendiente de subir:** si alguien cambia copy, link, keyword o creativo, el anuncio queda marcado como
+  “Pendiente de subir” hasta que Impacto Salmón lo actualice en la plataforma y pique “Ya está en pauta”.
+- **Historial:** cada cambio guarda quién lo hizo, de qué equipo, cuándo, y el antes → después.
+- **Ediciones al mismo tiempo:** si dos personas editan el mismo anuncio, sus cambios se combinan. Si las dos
+  cambiaron el mismo campo, la segunda ve un aviso antes de guardar.
+- **Importar:** se pegan las filas copiadas de Excel o Google Sheets con los encabezados de la plantilla de pauta
+  (Campaña, Conjunto de anuncios, Anuncio, Creativo, Copy y Video Actualizado, Copy, Link, Presupuesto, Keyword,
+  Fecha de Lanzamiento, Ver anuncios). Las celdas vacías de campaña y conjunto toman el valor de la fila de arriba.
+  Los anuncios importados entran como *Activo*, salvo los que dicen “DESACTIVADO” en Link.
+- **Exportar** a CSV lo que esté filtrado.
+
+Si la bitácora está vacía, el botón **“Cargar pauta de Rhino Performance”** carga los 29 anuncios de
+`src/bitacora/seed/rhino.tsv`.
+
+### Dónde se guardan los datos: una Google Sheet por cliente
+
+La app es estática (GitHub Pages), así que los datos compartidos viven en una Google Sheet de Impacto Salmón,
+a través de un Apps Script publicado como app web. Sin hoja conectada, la app funciona en **modo local**:
+los cambios se quedan en ese navegador y no se comparten.
+
+Configuración (una vez por cliente):
+
+1. Crea una Google Sheet nueva llamada `Bitácora · Rhino Performance`. Lo que va después de “Bitácora ·”
+   aparece en la app como nombre del cliente y como equipo en “¿Quién eres?”.
+2. En la hoja, ve a **Extensiones → Apps Script**. Borra lo que haya, pega el contenido de `apps-script/Code.gs` y guarda.
+3. Opcional, pero recomendado: en **Configuración del proyecto → Propiedades del script**, agrega `KEY` con la clave
+   que quieras.
+4. **Implementar → Nueva implementación → Tipo: App web.**
+   - Ejecutar como: **Yo** (la cuenta de Impacto Salmón).
+   - Quién tiene acceso: **Cualquier persona**.
+
+   Autoriza los permisos y copia la URL que termina en `/exec`.
+5. Abre `/bitacora/`, pica **Modo local → Conectar hoja**, pega la URL y la clave.
+6. En el mismo diálogo, pica **Copiar link** y mándaselo al cliente. Ese link ya trae la conexión: al abrirlo, la app
+   queda conectada en su navegador.
+
+El script crea solo las pestañas **Anuncios** e **Historial**. Se pueden ver y filtrar en Sheets, pero conviene
+editar desde la app para que quede el historial. Si cambias `Code.gs`, publica una versión nueva en
+**Implementar → Gestionar implementaciones → Editar → Nueva versión** para conservar la misma URL.
+
+> **Acceso:** no hay login. Cualquier persona con el link (URL + clave) puede ver y editar la bitácora de ese cliente,
+> así que compártelo solo con su equipo. Si se filtra, cambia `KEY` en las propiedades del script y vuelve a
+> compartir el link. El nombre que pone cada persona solo sirve para el historial; no es una contraseña.
+
+### Archivos
+
+```
+bitacora/index.html          ← entrada de la página
+src/bitacora/
+  App.tsx                    ← lista agrupada, filtros, resumen
+  config.ts                  ← estatus, plataformas y etiquetas (editable)
+  components/                ← tarjeta, editor, diálogos
+  lib/ads.ts                 ← importar (TSV), exportar (CSV), historial
+  lib/api.ts                 ← conexión con la hoja / modo local
+  seed/rhino.tsv             ← pauta inicial de RHINO Performance
+apps-script/Code.gs          ← backend para la Google Sheet
 ```
