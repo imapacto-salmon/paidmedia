@@ -65,7 +65,7 @@ export function Modal({
     return () => document.removeEventListener('keydown', onKey)
   }, [onClose])
   return (
-    <div className="fixed inset-0 z-40 flex items-end justify-center bg-stone-900/40 p-0 sm:items-center sm:p-4" onClick={onClose}>
+    <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/70 backdrop-blur-sm p-0 sm:items-center sm:p-4" onClick={onClose}>
       <div
         role="dialog"
         aria-modal="true"
@@ -117,4 +117,33 @@ export function timeAgo(iso: string) {
   if (s < 86400) return `hace ${Math.floor(s / 3600)} h`
   if (s < 86400 * 7) return `hace ${Math.floor(s / 86400)} d`
   return d.toLocaleDateString('es-MX', { day: 'numeric', month: 'short', year: 'numeric' })
+}
+
+/** Botones de opción: la elegida va en blanco. */
+export function Segmented<T extends string>({
+  options,
+  value,
+  onChange,
+}: {
+  options: { value: T; label: ReactNode }[]
+  value: T
+  onChange: (v: T) => void
+}) {
+  return (
+    <div className="inline-flex flex-wrap gap-1 rounded-xl border border-stone-200 bg-stone-50 p-1">
+      {options.map((o) => (
+        <button
+          key={o.value}
+          type="button"
+          aria-pressed={o.value === value}
+          onClick={() => onChange(o.value)}
+          className={`cursor-pointer rounded-lg px-3 py-1.5 text-sm font-semibold transition ${
+            o.value === value ? 'bg-stone-900 text-stone-50' : 'text-stone-500 hover:bg-stone-100 hover:text-stone-800'
+          }`}
+        >
+          {o.label}
+        </button>
+      ))}
+    </div>
+  )
 }

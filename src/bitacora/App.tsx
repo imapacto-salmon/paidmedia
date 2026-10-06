@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { PAUTA_STATUS, TEST_STATUS } from './config'
+import { DEFAULT_CLIENT, PAUTA_STATUS, TEST_STATUS } from './config'
 import { changeText, diff, download, groupAds, newAd, parseTsv, rowsToAds, toCsv, uid } from './lib/ads'
 import { readWho, useBitacora, writeWho } from './state/useBitacora'
 import type { Ad, AdField, PautaStatus, TestStatus, Who } from './types'
@@ -7,6 +7,7 @@ import { AdCard } from './components/AdCard'
 import { AdEditor } from './components/AdEditor'
 import { ConnectDialog, ImportDialog, WhoDialog } from './components/Dialogs'
 import { Modal, timeAgo } from './components/ui'
+import { Logos } from './components/Logos'
 import { IconDownload, IconPlus, IconRefresh, IconUpload } from '../components/icons'
 import seedRhino from './seed/rhino.tsv?raw'
 
@@ -30,7 +31,7 @@ export default function App() {
     return () => clearTimeout(t)
   }, [toast])
 
-  const client = data?.title.replace(/^bit[aá]cora( de pauta)?\s*[-·:]?\s*/i, '') ?? ''
+  const client = data?.title.replace(/^bit[aá]cora( de pauta)?\s*[-·:]?\s*/i, '').trim() || DEFAULT_CLIENT
   const ads = data?.ads ?? []
 
   const filtered = useMemo(() => {
@@ -112,15 +113,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen pb-16">
-      <header className="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
+      <header className="sticky top-0 z-20 border-b border-stone-200 bg-black/85 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-          <div className="flex min-w-0 items-center gap-2.5">
-            <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="" className="h-8 w-8" />
-            <div className="min-w-0">
-              <h1 className="text-[15px] leading-tight font-bold text-stone-900">Bitácora de Pauta</h1>
-              <p className="truncate text-xs text-stone-500">
-                Impacto Salmón{client && ` · ${client}`}
-              </p>
+          <div className="flex min-w-0 items-center gap-3 sm:gap-4">
+            <Logos client={client} />
+            <div className="hidden min-w-0 border-l border-stone-200 pl-4 md:block">
+              <h1 className="text-xs leading-tight font-bold tracking-[0.2em] text-stone-900 uppercase">Bitácora de Pauta</h1>
+              <p className="truncate text-xs text-stone-500">Control de artes en pauta activa</p>
             </div>
           </div>
           <div className="flex items-center gap-1">
@@ -148,6 +147,7 @@ export default function App() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
+        <h1 className="mb-5 text-xs font-bold tracking-[0.2em] text-stone-500 uppercase md:hidden">Bitácora de Pauta · artes en pauta activa</h1>
         {api.backend.kind === 'local' && (
           <div className="mb-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
             <p>
@@ -261,7 +261,7 @@ export default function App() {
         <div className="mt-6 space-y-8">
           {[...groups].map(([campaign, sets]) => (
             <section key={campaign}>
-              <h2 className="mb-3 flex items-baseline gap-2 text-lg font-bold tracking-tight text-stone-900">
+              <h2 className="mb-3 flex items-baseline gap-2 border-b border-stone-200 pb-2 text-sm font-bold tracking-[0.12em] break-all text-stone-900 uppercase">
                 {campaign || 'Sin campaña'}
                 <span className="text-sm font-medium text-stone-400">{[...sets.values()].reduce((n, l) => n + l.length, 0)}</span>
               </h2>
@@ -384,8 +384,9 @@ function Stat({ label, value, onClick, active, warn }: { label: string; value: n
       onClick={onClick}
       className={`card cursor-pointer p-3 text-left transition hover:border-salmon-300 ${active ? 'border-salmon-400 ring-2 ring-salmon-100' : ''}`}
     >
-      <p className={`text-2xl font-bold ${warn && value ? 'text-amber-600' : 'text-stone-900'}`}>{value}</p>
-      <p className="text-xs text-stone-500">{label}</p>
+      <p className={`text-3xl font-bold tabular-nums ${warn && value ? 'text-amber-600' : 'text-stone-900'}`}>{value}</p>
+      <p className="text-[11px] font-semibold tracking-wider text-stone-500 uppercase">{label}</p>
     </button>
   )
 }
+

@@ -2,8 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react'
 import { FIELD_LABELS, PAUTA_STATUS, PLATFORMS, SYNC_STATUS, TEST_STATUS } from '../config'
 import { changeText, monthLabel } from '../lib/ads'
 import type { Ad, AdField, HistoryEntry, PautaStatus, SyncStatus, TestStatus } from '../types'
-import { isUrl, timeAgo } from './ui'
-import { Segmented } from '../../components/ui'
+import { isUrl, Segmented, timeAgo } from './ui'
 import { IconCopy, IconTrash, IconX } from '../../components/icons'
 
 type Props = {
@@ -49,7 +48,7 @@ export function AdEditor({ original, initial, campaigns, adSets, history, onSave
   const copyText = (s: string) => navigator.clipboard?.writeText(s)
 
   return (
-    <div className="fixed inset-0 z-30 flex justify-end bg-stone-900/40" onClick={close}>
+    <div className="fixed inset-0 z-30 flex justify-end bg-black/70 backdrop-blur-sm" onClick={close}>
       <aside className="flex h-full w-full max-w-2xl flex-col bg-stone-50 shadow-2xl" onClick={(e) => e.stopPropagation()} aria-label="Editar anuncio">
         <header className="flex items-center justify-between gap-3 border-b border-stone-200 bg-white px-5 py-3.5">
           <div className="min-w-0">
