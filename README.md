@@ -152,7 +152,7 @@ Control de todos los anuncios que están dados de alta en pauta, compartido entr
   Fecha de Lanzamiento, Ver anuncios). Las celdas vacías de campaña y conjunto toman el valor de la fila de arriba.
   Los anuncios importados entran como *Activo*, salvo los que dicen “DESACTIVADO” en Link.
 - **Exportar** a CSV lo que esté filtrado.
-- **Formatos y vista previa:** cada anuncio lleva sus variaciones (Post 1:1, Story 9:16, Búsqueda, Carrusel 1:1…)
+- **Formatos y vista previa:** cada anuncio lleva sus variaciones (Post 1:1, Story 9:16, Búsqueda 1.91:1, Carrusel 1:1…)
   con el link de cada archivo. La tarjeta muestra una miniatura de cada formato y al picarla se abre la vista grande:
   - **Drive:** link de *archivo* (`drive.google.com/file/d/…`). Funciona con imágenes y videos, siempre que el archivo
     esté compartido como **“Cualquier persona con el enlace”**. Las carpetas no tienen vista previa.

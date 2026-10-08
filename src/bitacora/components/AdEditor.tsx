@@ -116,7 +116,7 @@ export function AdEditor({ original, initial, campaigns, adSets, history, onSave
 
           <Section title="Formatos y vista previa">
             <p className="-mt-1 text-xs text-stone-500">
-              Agrega cada formato que corre (Post 1:1, Story 9:16, Búsqueda…) y pega su link de Drive o de Instagram.
+              Pica el formato que corre (Post 1:1, Story 9:16, Búsqueda 1.91:1…) y pega el link de su archivo en Drive o del post en Instagram.
             </p>
             <VariantEditor value={draft.variants} onChange={(v) => set('variants', v)} title={draft.name || 'Anuncio'} />
           </Section>

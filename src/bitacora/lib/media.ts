@@ -8,20 +8,29 @@
 
 export type Variant = { format: string; url: string }
 
-/** Formatos que se cargan casi siempre. `ratio` es ancho / alto, solo para dibujar el marco de la vista previa. */
-export const FORMAT_PRESETS: { label: string; ratio: number }[] = [
-  { label: 'Post 1:1', ratio: 1 },
-  { label: 'Story 9:16', ratio: 9 / 16 },
-  { label: 'Búsqueda', ratio: 1 },
-  { label: 'Carrusel 1:1', ratio: 1 },
-  { label: 'Feed 4:5', ratio: 4 / 5 },
-  { label: 'Video', ratio: 9 / 16 },
-  { label: 'Publicación IG / Colaboración', ratio: 4 / 5 },
+/** Formatos que se cargan casi siempre (mismas medidas que en el Brief de Artes). */
+export type FormatPreset = {
+  label: string
+  /** Relación como texto, para la silueta. */
+  ratio: string
+  width: number
+  height: number
+  placement: string
+  note?: string
+}
+
+export const FORMAT_PRESETS: FormatPreset[] = [
+  { label: 'Post 1:1', ratio: '1:1', width: 1080, height: 1080, placement: 'Feed cuadrado' },
+  { label: 'Story 9:16', ratio: '9:16', width: 1080, height: 1920, placement: 'Stories / Reels' },
+  { label: 'Búsqueda 1.91:1', ratio: '1.91:1', width: 1200, height: 628, placement: 'Link / Marketplace' },
+  { label: 'Carrusel 1:1', ratio: '1:1', width: 1080, height: 1080, placement: 'Carrusel', note: 'Una por tarjeta' },
+  { label: 'Video 9:16', ratio: '9:16', width: 1080, height: 1920, placement: 'Reels / Stories' },
+  { label: 'Publicación IG', ratio: '1:1', width: 1080, height: 1080, placement: 'Post o colaboración', note: 'Link de Instagram' },
 ]
 
 export const ratioOf = (format: string) => {
   const preset = FORMAT_PRESETS.find((p) => p.label.toLowerCase() === format.trim().toLowerCase())
-  if (preset) return preset.ratio
+  if (preset) return preset.width / preset.height
   const m = format.match(/(\d+(?:\.\d+)?)\s*[:x]\s*(\d+(?:\.\d+)?)/)
   return m ? Number(m[1]) / Number(m[2]) : 1
 }
