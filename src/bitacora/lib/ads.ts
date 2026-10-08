@@ -1,5 +1,6 @@
 import { CONTENT_FIELDS, FIELD_LABELS, labelOf, PAUTA_STATUS, TEST_STATUS } from '../config'
 import type { Ad, AdField, Change, PautaStatus } from '../types'
+import { variantsSummary } from './media'
 
 export const uid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4)
 
@@ -10,6 +11,7 @@ export const newAd = (patch: Partial<Ad> = {}): Ad => ({
   adSet: '',
   name: '',
   creative: '',
+  variants: '',
   copyUpdated: '',
   copy: '',
   link: '',
@@ -44,6 +46,10 @@ export const touchesContent = (changes: Change[]) => changes.some((c) => CONTENT
 export function changeText(c: Change) {
   const label = FIELD_LABELS[c.field]
   if (c.field === 'launch') return `${label}: ${monthLabel(c.from) || '—'} → ${monthLabel(c.to) || '—'}`
+  if (c.field === 'variants') {
+    const [a, b] = [variantsSummary(c.from), variantsSummary(c.to)]
+    return a === b ? `${label}: cambió algún link (${b})` : `${label}: ${a || '—'} → ${b || '—'}`
+  }
   const short = (s: string) => {
     const v = labelOf(c.field, s).replace(/\s+/g, ' ').trim()
     return v ? (v.length > 60 ? `${v.slice(0, 60)}…` : v) : '—'
@@ -131,6 +137,7 @@ const HEADER_RULES: [AdField, (h: string) => boolean][] = [
   ['adSet', (h) => h.startsWith('conjunto')],
   ['name', (h) => h === 'anuncio' || h === 'nombre del anuncio'],
   ['creative', (h) => h.startsWith('creativo')],
+  ['variants', (h) => h.startsWith('formatos') || h.startsWith('variaciones')],
   ['link', (h) => h === 'link' || h.startsWith('url') || h.startsWith('destino')],
   ['budget', (h) => h.startsWith('presupuesto')],
   ['keyword', (h) => h.startsWith('keyword')],
@@ -205,6 +212,7 @@ export function rowsToAds(rows: string[][], who: string): ImportResult {
         adSet,
         name: name.replace(/\s+/g, ' '),
         creative: get('creative'),
+        variants: get('variants'),
         copyUpdated: get('copyUpdated'),
         copy: get('copy'),
         link,
@@ -226,7 +234,7 @@ export function rowsToAds(rows: string[][], who: string): ImportResult {
 // ---------- Exportar ----------
 
 const EXPORT_FIELDS: AdField[] = [
-  'platform', 'campaign', 'adSet', 'name', 'status', 'test', 'sync', 'creative', 'copyUpdated', 'copy', 'link', 'budget',
+  'platform', 'campaign', 'adSet', 'name', 'status', 'test', 'sync', 'creative', 'variants', 'copyUpdated', 'copy', 'link', 'budget',
   'keyword', 'launch', 'preview', 'notes',
 ]
 

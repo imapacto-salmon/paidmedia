@@ -34,6 +34,7 @@ var COLS = [
   ['test', 'Estatus de prueba'],
   ['sync', 'Cambios'],
   ['creative', 'Creativo'],
+  ['variants', 'Formatos'],
   ['copyUpdated', 'Copy y video actualizado'],
   ['copy', 'Copy en pauta'],
   ['link', 'Link'],
@@ -180,8 +181,16 @@ function logSheet() {
   return sheet
 }
 
+/** Encabezados de la hoja. Si a una hoja vieja le falta una columna nueva (ej. “Formatos”), se agrega al final. */
 function headers(sheet) {
-  return sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+  var head = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0]
+  var missing = COLS.map(function (c) { return c[1] }).filter(function (h) { return head.indexOf(h) < 0 })
+  if (sheet.getName() === SHEET_ADS && missing.length) {
+    sheet.getRange(1, head.length + 1, sheet.getMaxRows(), missing.length).setNumberFormat('@')
+    sheet.getRange(1, head.length + 1, 1, missing.length).setValues([missing]).setFontWeight('bold')
+    head = head.concat(missing)
+  }
+  return head
 }
 
 function keyFor(header) {

@@ -3,6 +3,7 @@ import { FIELD_LABELS, PAUTA_STATUS, PLATFORMS, SYNC_STATUS, TEST_STATUS } from 
 import { changeText, monthLabel } from '../lib/ads'
 import type { Ad, AdField, HistoryEntry, PautaStatus, SyncStatus, TestStatus } from '../types'
 import { isUrl, Segmented, timeAgo } from './ui'
+import { VariantEditor } from './VariantEditor'
 import { IconCopy, IconTrash, IconX } from '../../components/icons'
 
 type Props = {
@@ -32,7 +33,8 @@ export function AdEditor({ original, initial, campaigns, adSets, history, onSave
   }
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && close()
+    // Si hay una vista previa abierta encima, Escape cierra solo esa.
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && !document.querySelector('[role=dialog]') && close()
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
   })
@@ -112,6 +114,13 @@ export function AdEditor({ original, initial, campaigns, adSets, history, onSave
             </datalist>
           </Section>
 
+          <Section title="Formatos y vista previa">
+            <p className="-mt-1 text-xs text-stone-500">
+              Pica el formato que corre (Post 1:1, Story 9:16, Búsqueda 1.91:1…) y pega el link de su archivo en Drive o del post en Instagram.
+            </p>
+            <VariantEditor value={draft.variants} onChange={(v) => set('variants', v)} title={draft.name || 'Anuncio'} />
+          </Section>
+
           <Section title="Copy">
             <TextArea
               label="Copy y video actualizado"
@@ -143,7 +152,7 @@ export function AdEditor({ original, initial, campaigns, adSets, history, onSave
                 />
                 {draft.launch && !/^\d{4}-\d{2}$/.test(draft.launch) && <span className="hint block">Antes: {monthLabel(draft.launch)}</span>}
               </label>
-              <Input label="Creativo (link al archivo)" value={draft.creative} onChange={(v) => set('creative', v)} placeholder="https://drive.google.com/…" />
+              <Input label="Creativo (carpeta o archivo)" value={draft.creative} onChange={(v) => set('creative', v)} placeholder="https://drive.google.com/…" />
               <Input label="Ver anuncio (preview)" value={draft.preview} onChange={(v) => set('preview', v)} placeholder="https://fb.me/adspreview/…" />
             </div>
             <div className="flex flex-wrap gap-3 text-xs">
