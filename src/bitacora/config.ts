@@ -42,7 +42,7 @@ export const SYNC_STATUS: { value: SyncStatus; label: string }[] = [
 ]
 
 /** Si cambia alguno de estos campos, el anuncio queda “pendiente de subir” a la plataforma. */
-export const CONTENT_FIELDS: AdField[] = ['copyUpdated', 'copy', 'link', 'keyword', 'creative']
+export const CONTENT_FIELDS: AdField[] = ['copyUpdated', 'copy', 'link', 'keyword', 'creative', 'variants']
 
 export const FIELD_LABELS: Record<AdField, string> = {
   platform: 'Plataforma',
@@ -50,6 +50,7 @@ export const FIELD_LABELS: Record<AdField, string> = {
   adSet: 'Conjunto de anuncios',
   name: 'Anuncio',
   creative: 'Creativo',
+  variants: 'Formatos',
   copyUpdated: 'Copy y video actualizado',
   copy: 'Copy en pauta',
   link: 'Link',

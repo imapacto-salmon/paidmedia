@@ -152,6 +152,17 @@ Control de todos los anuncios que están dados de alta en pauta, compartido entr
   Fecha de Lanzamiento, Ver anuncios). Las celdas vacías de campaña y conjunto toman el valor de la fila de arriba.
   Los anuncios importados entran como *Activo*, salvo los que dicen “DESACTIVADO” en Link.
 - **Exportar** a CSV lo que esté filtrado.
+- **Formatos y vista previa:** cada anuncio lleva sus variaciones (Post 1:1, Story 9:16, Búsqueda, Carrusel 1:1…)
+  con el link de cada archivo. La tarjeta muestra una miniatura de cada formato y al picarla se abre la vista grande:
+  - **Drive:** link de *archivo* (`drive.google.com/file/d/…`). Funciona con imágenes y videos, siempre que el archivo
+    esté compartido como **“Cualquier persona con el enlace”**. Las carpetas no tienen vista previa.
+  - **Instagram:** link del post o reel (`instagram.com/p/…` o `/reel/…`), útil para colaboraciones. Se ve el post
+    completo, con su copy, en la vista grande.
+  - **Imagen o video directo** (`.jpg`, `.png`, `.mp4`…).
+
+  Los formatos rápidos se cambian en `FORMAT_PRESETS` (`src/bitacora/lib/media.ts`). En la hoja se guardan en la
+  columna **Formatos**, uno por línea: `Post 1:1 | https://drive.google.com/…`. El script agrega esa columna solo
+  a las hojas que ya existían.
 
 Si la bitácora está vacía, el botón **“Cargar pauta de Rhino Performance”** carga los 29 anuncios de
 `src/bitacora/seed/rhino.tsv`.
@@ -219,6 +230,7 @@ src/bitacora/
   components/                ← tarjeta, editor, diálogos
   lib/ads.ts                 ← importar (TSV), exportar (CSV), historial
   lib/api.ts                 ← conexión con la hoja / modo local
+  lib/media.ts               ← formatos y vista previa (Drive, Instagram, imagen)
   seed/rhino.tsv             ← pauta inicial de RHINO Performance
 public/logos/                ← logos en blanco (Impacto Salmón y clientes)
 apps-script/Code.gs          ← backend para la Google Sheet

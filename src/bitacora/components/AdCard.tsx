@@ -1,7 +1,10 @@
+import { useState } from 'react'
 import { PAUTA_STATUS, TEST_STATUS } from '../config'
 import { monthLabel } from '../lib/ads'
 import type { Ad, PautaStatus, TestStatus } from '../types'
 import { isUrl, StatusSelect, timeAgo } from './ui'
+import { adVariants } from '../lib/media'
+import { PreviewModal, VariantStrip } from './Preview'
 import { IconCheck, IconLink } from '../../components/icons'
 
 export function AdCard({
@@ -15,7 +18,10 @@ export function AdCard({
 }) {
   const copy = (ad.copyUpdated || ad.copy).trim().replace(/\n\s*\n+/g, '\n')
   const off = ad.status === 'desactivado'
+  const variants = adVariants(ad)
+  const [preview, setPreview] = useState<number | null>(null)
   return (
+    <>
     <article
       className={`card cursor-pointer p-4 transition hover:border-salmon-300 hover:shadow ${off ? 'opacity-70' : ''}`}
       onClick={onOpen}
@@ -34,6 +40,8 @@ export function AdCard({
           <StatusSelect<TestStatus> label="Estatus de prueba" value={ad.test} options={TEST_STATUS} onChange={(v) => onQuick({ test: v })} />
         </div>
       </div>
+
+      <VariantStrip variants={variants} onOpen={setPreview} />
 
       {copy ? (
         <p className="mt-3 line-clamp-3 text-sm whitespace-pre-line text-stone-600">
@@ -64,7 +72,7 @@ export function AdCard({
           ) : (
             <span className="rounded-full bg-stone-100 px-2 py-0.5 text-stone-600">Destino: {ad.link}</span>
           ))}
-        {ad.creative && isUrl(ad.creative) && (
+        {ad.creative && isUrl(ad.creative) && !variants.some((v) => v.url === ad.creative) && (
           <a href={ad.creative} target="_blank" rel="noreferrer" className="text-stone-500 hover:text-salmon-700" onClick={(e) => e.stopPropagation()}>
             Creativo ↗
           </a>
@@ -93,5 +101,9 @@ export function AdCard({
         </div>
       )}
     </article>
+    {preview !== null && variants[preview] && (
+      <PreviewModal title={ad.name} variants={variants} index={preview} onIndex={setPreview} onClose={() => setPreview(null)} />
+    )}
+    </>
   )
 }

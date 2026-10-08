@@ -49,6 +49,9 @@ export function writeConnection(conn: Connection | null) {
 export const shareLink = (conn: Connection) =>
   `${location.origin}${location.pathname}#api=${encodeURIComponent(conn.url)}${conn.key ? `&k=${encodeURIComponent(conn.key)}` : ''}`
 
+/** Completa campos que agregamos después (por ejemplo, una hoja sin la columna “Formatos”). */
+const normalize = (s: Snapshot): Snapshot => ({ ...s, ads: s.ads.map((a) => ({ ...a, variants: a.variants ?? '' })) })
+
 // ---------- Google Sheets (Apps Script) ----------
 
 export function remoteBackend(conn: Connection): Backend {
@@ -80,7 +83,7 @@ export function remoteBackend(conn: Connection): Backend {
   }
   return {
     kind: 'remote',
-    load: () => call<Snapshot>({ action: 'list' }),
+    load: async () => normalize(await call<Snapshot>({ action: 'list' })),
     async save(ad, base, entry) {
       const r = await call<{ ok: boolean; ad?: Ad; conflict?: Ad | null }>({ action: 'save', ad, base: base ?? null, entry })
       return r.ok && r.ad ? { ok: true, ad: r.ad } : { ok: false, conflict: r.conflict ?? null }
@@ -118,7 +121,7 @@ export function localBackend(): Backend {
   const stamp = (ad: Ad, by: string): Ad => ({ ...ad, updatedAt: new Date().toISOString(), updatedBy: by })
   return {
     kind: 'local',
-    load: async () => read(),
+    load: async () => normalize(read()),
     async save(ad, base, entry) {
       const s = read()
       const current = s.ads.find((a) => a.id === ad.id)

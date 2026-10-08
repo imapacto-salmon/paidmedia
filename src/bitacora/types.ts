@@ -11,6 +11,8 @@ export type Ad = {
   name: string
   /** Link o nombre del creativo (imagen/video). */
   creative: string
+  /** Variaciones por formato con su link (ver lib/media.ts), una por línea: “Post 1:1 | https://…”. */
+  variants: string
   /** Copy y video actualizado (propuesta nueva). */
   copyUpdated: string
   /** Copy que está en pauta. */
