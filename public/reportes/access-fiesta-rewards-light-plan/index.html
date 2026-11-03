@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Plan de acción Access Fiesta Rewards Light</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF; --bar:#000000; --ink:#141211; --ink2:#5E5754; --mute:#8E8782; --line:#EDE8E5; --line2:#E2DBD7;
+  --acc:#E8604C; --accw:rgba(232,96,76,.12); --good:#1E7F4F; --bad:#C93A2B; --neu:#C9C1BC;
+  --font:'Montserrat',system-ui,-apple-system,'Segoe UI',sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 90px)}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:14px;line-height:1.55;padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--bar)}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:var(--bar);color:#fff;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.bar-in{max-width:1040px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px 24px;padding-block:16px;flex-wrap:wrap}
+.bar-t{display:flex;align-items:baseline;gap:6px 22px;flex-wrap:wrap}
+.bar-t b{font-weight:700;font-size:17px;letter-spacing:.02em;text-transform:uppercase}
+.bar-t b span{font-weight:400}
+.bar-t small{font-size:13px;color:#D9D3CF}
+.bar img{display:block;height:46px;width:auto}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:20px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-top:20px}
+nav.idx{display:flex;gap:6px;flex-wrap:wrap}
+nav.idx a{font-size:12px;font-weight:500;color:var(--ink2);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px}
+nav.idx a:hover{color:var(--ink);border-color:var(--mute)}
+section{border:1px solid var(--line2);border-radius:18px;padding:30px clamp(18px,4vw,36px)}
+h2{font-size:21px;font-weight:600;letter-spacing:-.01em;margin:0;text-wrap:balance}
+h3{font-size:14px;font-weight:600;margin:0 0 12px}
+p.sub{margin:6px 0 24px;color:var(--ink2);max-width:72ch}
+p.txt{margin:0 0 14px;color:var(--ink2);max-width:80ch}
+.lbl{font-size:12px;color:var(--ink2);letter-spacing:.02em}
+.hero{font-size:clamp(34px,6vw,56px);font-weight:500;letter-spacing:-.03em;line-height:1.05;margin:8px 0 0}
+.grid{display:grid;gap:22px 26px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+.tile .v{font-size:24px;font-weight:500;letter-spacing:-.02em;margin-top:4px;line-height:1.15}
+.dl{font-size:12px;margin-top:5px;color:var(--ink2)}
+.good{color:var(--good)} .bad{color:var(--bad)}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:28px 40px}
+.two>div{min-width:0}
+.pill{display:inline-block;padding:2px 9px;border-radius:999px;background:var(--accw);font-size:11px;font-weight:600;white-space:nowrap}
+.pill.g{background:rgba(30,127,79,.1);color:var(--good)}
+.pill.n{background:#F4F1EF;color:var(--ink2)}
+.scroll{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;min-width:560px}
+.tbl th{font-weight:500;color:var(--ink2);font-size:12px;text-align:right;padding:8px 0 10px 12px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:bottom}
+.tbl td{padding:11px 0 11px 12px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+.tbl th:first-child,.tbl td:first-child{text-align:left;padding-left:0}
+.tbl td:first-child{white-space:normal;min-width:180px}
+.tbl tfoot td{font-weight:600;border-top:1px solid var(--ink);border-bottom:0}
+.tbl tr.dim td{color:var(--mute)}
+.tbl td.hl{color:var(--acc);font-weight:600}
+.tbl td small{display:block;color:var(--mute);font-size:11px}
+.hb{display:grid;grid-template-columns:150px 1fr 170px;gap:12px;align-items:center;padding:8px 0;font-size:13px}
+.hb .tr{height:8px;background:var(--line);border-radius:4px;position:relative}
+.hb .tr i{position:absolute;inset:0 auto 0 0;border-radius:4px;display:block;background:var(--ink2)}
+.hb .tr i.a{background:var(--acc)}
+.hb .tr i.n{background:var(--neu)}
+.hb .p{text-align:right;color:var(--ink2)}
+.hb .p b{color:var(--ink);font-weight:600}
+.ins{list-style:none;margin:0;padding:0}
+.ins li{display:grid;grid-template-columns:10px 1fr;gap:14px;align-items:baseline;padding:12px 0;border-bottom:1px solid var(--line);max-width:86ch}
+.ins li:last-child{border-bottom:0}
+.ins i{width:8px;height:8px;border-radius:50%;background:var(--acc);display:block;margin-top:6px}
+.ins i.g{background:var(--good)}
+.ins i.n{background:var(--neu)}
+.ins b{font-weight:600}
+.note{font-size:12px;color:var(--mute);margin:16px 0 0;max-width:84ch}
+.notes{margin:0;padding-left:18px;color:var(--ink2);font-size:13px;max-width:86ch}
+.notes li{padding:4px 0}
+.gap{height:26px}
+.rec{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.rec>div{border:1px solid var(--line);border-radius:14px;padding:20px 22px}
+.rec h3{display:flex;align-items:center;gap:10px}
+.rec ol{margin:0;padding-left:18px;color:var(--ink2);font-size:13px}
+.rec ol li{padding:5px 0}
+.rec ol b{color:var(--ink);font-weight:600}
+@media (max-width:620px){ .bar-t small{display:none} .bar-in{padding-block:12px} .bar img{height:34px} .hb{grid-template-columns:110px 1fr} .hb .p{grid-column:1/-1;text-align:left} }
+
+.g6{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
+.hero.s{font-size:clamp(30px,4.4vw,42px)}
+.tbl td.l{text-align:left;white-space:normal;color:var(--ink2)}
+.mix{display:flex;height:30px;border-radius:8px;overflow:hidden;margin:26px 0 6px;gap:2px}
+.mix span{display:flex;align-items:center;padding:0 10px;color:#fff;font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;min-width:0}
+.mix.big{height:46px;font-size:13px}
+.fd{list-style:none;counter-reset:f;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 36px}
+.fd li{counter-increment:f;display:grid;grid-template-columns:26px 1fr;padding:11px 0;border-bottom:1px solid var(--line)}
+.fd li::before{content:counter(f);grid-row:1/3;font-weight:700;color:var(--acc);font-size:13px;line-height:1.5}
+.fd b{font-weight:600;font-size:13.5px}
+.fd span{color:var(--ink2);font-size:12.5px;line-height:1.45}
+.fn{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:6px}
+.fn .st{width:var(--w);background:var(--c);border-radius:999px;padding:12px 28px;display:flex;justify-content:space-between;align-items:center;gap:16px;min-width:300px}
+.fn .st b{font-weight:600;font-size:13.5px;display:block}
+.fn .st small{display:block;font-size:11.5px;color:var(--ink2)}
+.fn .st .k{text-align:right;font-size:12px;color:var(--ink2)}
+.fn .st .k b{display:inline;font-size:18px;color:var(--ink);font-weight:600}
+.fn .st.dk,.fn .st.dk .k b{color:#fff}.fn .st.dk small,.fn .st.dk .k{color:#D9D3CF}
+.lanes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:22px}
+.lanes>div{border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.steps{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.steps span{border:1px solid var(--line2);border-radius:999px;padding:4px 12px;font-size:12.5px;font-weight:500}
+.steps span.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+.steps i{font-style:normal;color:var(--mute)}
+.chips2{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}
+.chips2 span{font-size:12px;font-weight:500;border-radius:999px;padding:4px 12px}
+.chips2 .g{background:rgba(30,127,79,.1);color:var(--good)}
+.chips2 .r{background:var(--accw);color:var(--bad);text-decoration:line-through}
+.check{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.check div{border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.check b{display:block;font-weight:600}
+.check b::before{content:"✓ ";color:var(--good)}
+.check span{font-size:12px;color:var(--ink2)}
+.pipe{display:grid;grid-template-columns:repeat(6,minmax(0,1fr)) minmax(170px,1.3fr);gap:8px;align-items:stretch}
+.ps{position:relative;border:1px solid var(--line2);border-radius:12px;padding:12px 12px 12px;display:flex;flex-direction:column;gap:3px;background:#fff}
+.ps small{font-size:11px;color:var(--mute);font-weight:600}
+.ps b{font-weight:600;font-size:13px}
+.ps span{font-size:11.5px;color:var(--ink2);line-height:1.35}
+.ps em{font-style:normal;font-size:11px;color:var(--acc);margin-top:auto;padding-top:6px;font-weight:500}
+.ps:not(:last-child)::after{content:"";position:absolute;right:-8px;top:50%;width:8px;height:1px;background:var(--mute)}
+.end{display:flex;flex-direction:column;gap:8px}
+.end>div{border-radius:12px;padding:10px 12px;flex:1}
+.end b{display:block;font-weight:600;font-size:13px}
+.end span{font-size:11.5px;line-height:1.35}
+.won{background:rgba(30,127,79,.1);color:var(--good)}
+.lost{background:var(--accw);color:var(--bad)}
+.tl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:18px}
+.tl>div{border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.tl b{display:block;margin:10px 0 6px;font-weight:600}
+.tl ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--ink2)}
+.tl li{padding:2px 0}
+#reglas .tbl td:first-child{min-width:260px}
+@media (max-width:900px){ .pipe{grid-template-columns:repeat(2,minmax(0,1fr))!important} .end{grid-column:1/-1;flex-direction:row} .ps:not(:last-child)::after{display:none} .fn .st{width:100%;min-width:0} }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <div class="bar-in">
+    <div class="bar-t"><b>Plan <span>de acción</span></b><small>Access Fiesta Rewards Light · Relanzamiento · Noviembre 2026</small></div>
+    <img src="data:image/png;base64,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" alt="Impacto Salmón">
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="idx" aria-label="Secciones">
+    <a href="#descubrimientos">Descubrimientos</a><a href="#meta">Meta anual</a><a href="#embudo">Embudo</a>
+    <a href="#presupuesto">Presupuesto</a><a href="#campanas">Campañas</a><a href="#antes">Medición antes</a>
+    <a href="#pipelines">Pipelines</a><a href="#ruta">Ruta 90 días</a><a href="#reglas">Reglas</a>
+  </nav>
+
+  <!-- DESCUBRIMIENTOS -->
+  <section id="descubrimientos">
+    <h2>Descubrimientos</h2>
+    <p class="sub">Meta Ads · 23 abr 2025 – 29 oct 2026</p>
+    <div class="grid g6">
+      <div class="tile"><div class="lbl">Campañas</div><div class="v">—</div><div class="dl">por confirmar</div></div>
+      <div class="tile"><div class="lbl">Conjuntos</div><div class="v">21</div></div>
+      <div class="tile"><div class="lbl">Anuncios</div><div class="v">44</div><div class="dl">3 activos</div></div>
+      <div class="tile"><div class="lbl">Inversión</div><div class="v">$1.09M</div></div>
+      <div class="tile"><div class="lbl">Píxeles</div><div class="v bad">3</div></div>
+      <div class="tile"><div class="lbl">Compras medidas</div><div class="v bad">2</div></div>
+    </div>
+    <div class="mix" aria-label="Inversión por tipo de resultado">
+      <span style="flex:45.7;background:var(--ink2)">WhatsApp 46%</span>
+      <span style="flex:26.6;background:var(--acc)">Venta web 27%</span>
+      <span style="flex:23.2;background:#9A918C">Formulario 23%</span>
+      <span style="flex:4.5;background:var(--neu)" title="Reconocimiento 4%"></span>
+    </div>
+    <ol class="fd">
+      <li><b>3 píxeles en el sitio, ninguno mide compras</b><span>Leads en uno y venta en otro: la señal está partida y Meta optimiza a pago iniciado.</span></li>
+      <li><b>$291.6K en venta web → 2 compras</b><span>57 pagos iniciados sin cierre medido.</span></li>
+      <li><b>Retargeting 2026: $55.2K → 1 pago iniciado</b><span>Se armó con quienes vieron un video; relevancia por debajo del promedio.</span></li>
+      <li><b>89% de Reconocimiento en Audience Network</b><span>Tráfico de apps de terceros que alimenta el retargeting.</span></li>
+      <li><b>WhatsApp, el canal más barato, está apagado</b><span>$50 por conversación (mejores, $9–$27); se apagó en nov 2025.</span></li>
+      <li><b>El formulario depende de un solo anuncio</b><span>Lead a $170 contra $36–$50 en 2025; frecuencia de 4.2.</span></li>
+      <li><b>Pruebas sin madurar y sin datos de cierre</b><span>5 versiones de venta con menos de 11 resultados cada una; no se sabe qué canal vende.</span></li>
+    </ol>
+  </section>
+
+  <!-- META ANUAL -->
+  <section id="meta">
+    <h2>Meta a 12 meses</h2>
+    <div class="grid" style="margin-top:20px">
+      <div class="tile"><div class="lbl">Ventas</div><div class="hero s">461</div><div class="dl">≈ 38 al mes</div></div>
+      <div class="tile"><div class="lbl">CAC objetivo</div><div class="hero s">$5,200</div><div class="dl">15% de la membresía</div></div>
+      <div class="tile"><div class="lbl">Presupuesto de pauta</div><div class="hero s">$50K</div><div class="dl">al mes · $600K al año</div></div>
+      <div class="tile"><div class="lbl">Pauta por venta</div><div class="hero s">$1,302</div><div class="dl">25% del CAC</div></div>
+    </div>
+    <p class="note">El resto del CAC ($3,898 por venta) cubre call center, comisiones y operación.</p>
+  </section>
+
+  <!-- EMBUDO -->
+  <section id="embudo">
+    <h2>Embudo con números</h2>
+    <p class="sub">Cuántos contactos hacen falta al mes para llegar a 38 ventas.</p>
+    <div class="fn">
+      <div class="st" style="--w:100%;--c:#ECE8E5"><div><b>TOFU · Awareness</b><small>Meta · TikTok · orgánico</small></div><div class="k"><b>1M</b> impresiones<small>CPM ≤ $50 · CTR ≥ 1%</small></div></div>
+      <div class="st" style="--w:88%;--c:#DDD7D3"><div><b>MOFU · Consideración</b><small>Retargeting · Google Search · landing</small></div><div class="k"><b>10K</b> visitas<small>CPC ≤ $5</small></div></div>
+      <div class="st" style="--w:76%;--c:#C9C1BC"><div><b>BOFU · Contacto</b><small>WhatsApp (bot) · formulario · pago iniciado</small></div><div class="k"><b>460</b> contactos<small>≤ $110 por contacto</small></div></div>
+      <div class="st" style="--w:64%;--c:#B1A7A1"><div><b>Calificación</b><small>Lead scoring · agente</small></div><div class="k"><b>160</b> calificados<small>35% de los contactos</small></div></div>
+      <div class="st dk" style="--w:52%;--c:#5E5754"><div><b>Cierre · Venta</b><small>Asesor · CRM · pago en línea</small></div><div class="k"><b>38</b> ventas<small>≤ $1,302 de pauta por venta</small></div></div>
+      <div class="st dk" style="--w:40%;--c:#141211"><div><b>Recompra y referidos</b><small>Email · upsell · referidos</small></div><div class="k"><b>10%</b> referidos<small>LTV · NPS</small></div></div>
+    </div>
+    <p class="note">Las tasas son supuestos de arranque y se ajustan con el primer mes de datos del CRM. Para llegar a 38 ventas: 27 por WhatsApp y formulario, y 11 por compra directa en el sitio.</p>
+  </section>
+
+  <!-- PRESUPUESTO -->
+  <section id="presupuesto">
+    <h2>Presupuesto mensual · $50,000</h2>
+    <div class="mix big" style="margin-top:20px">
+      <span style="flex:60;background:var(--ink)">Meta · 60% · $30,000</span>
+      <span style="flex:30;background:var(--acc)">Google · 30% · $15,000</span>
+      <span style="flex:10;background:var(--neu);color:var(--ink)">TikTok · $5K</span>
+    </div>
+    <div class="lanes">
+      <div><h3>Meta Ads</h3><div class="steps"><span>Tráfico</span><i>→</i><span>Mensajes</span><i>→</i><span class="on">Conversión</span></div></div>
+      <div><h3>Google Ads</h3><div class="steps"><span>Search</span><i>→</i><span class="on">PMax</span></div></div>
+      <div><h3>TikTok Ads</h3><div class="steps"><span>Tráfico</span><i>→</i><span class="on">Conversión</span></div></div>
+    </div>
+  </section>
+
+  <!-- CAMPAÑAS META -->
+  <section id="campanas">
+    <h2>Campañas en Meta · $30,000</h2>
+    <p class="sub">Solo Facebook e Instagram. Un píxel y atribución de 7 días clic / 1 día vista.</p>
+    <div class="hb"><span>WhatsApp (venta)</span><div class="tr"><i class="a" style="width:30%"></i></div><span class="p"><b>$9,000</b> · 30%</span></div>
+    <div class="hb"><span>Formulario de leads</span><div class="tr"><i style="width:25%"></i></div><span class="p"><b>$7,500</b> · 25%</span></div>
+    <div class="hb"><span>Retargeting 1 · Web</span><div class="tr"><i style="width:15%"></i></div><span class="p"><b>$4,500</b> · 15%</span></div>
+    <div class="hb"><span>Retargeting 2 · Leads</span><div class="tr"><i style="width:10%"></i></div><span class="p"><b>$3,000</b> · 10%</span></div>
+    <div class="hb"><span>Venta web</span><div class="tr"><i class="n" style="width:10%"></i></div><span class="p"><b>$3,000</b> · 10%</span></div>
+    <div class="hb"><span>Pruebas creativas</span><div class="tr"><i class="n" style="width:10%"></i></div><span class="p"><b>$3,000</b> · 10%</span></div>
+
+    <div class="scroll" style="margin-top:24px"><table class="tbl" style="min-width:760px">
+      <thead><tr><th>Campaña</th><th style="text-align:left">Público</th><th style="text-align:left">Optimiza a</th><th>Meta</th></tr></thead>
+      <tbody>
+        <tr><td>WhatsApp</td><td class="l">35+ amplio · 55+ aparte</td><td class="l">Conversación → compra</td><td>≤ $50</td></tr>
+        <tr><td>Formulario</td><td class="l">55+ · 35–54</td><td class="l">Lead → lead calificado</td><td>≤ $130</td></tr>
+        <tr><td>Retargeting 1 · Web</td><td class="l">Visitantes 30 d · pagos iniciados sin compra 14 d</td><td class="l">Compra</td><td>≤ $1,000 por pago iniciado</td></tr>
+        <tr><td>Retargeting 2 · Leads</td><td class="l">Leads y conversaciones sin cierre 30 d</td><td class="l">Conversación con asesor</td><td>Recuperar el 10% de los perdidos</td></tr>
+        <tr><td>Venta web</td><td class="l">35+ amplio</td><td class="l">Compra (cuando el píxel esté validado)</td><td>≤ $1,300 por venta</td></tr>
+        <tr><td>Pruebas</td><td class="l">35+ amplio</td><td class="l">Lead</td><td>1 ganador al mes</td></tr>
+      </tbody>
+    </table></div>
+    <div class="chips2"><span class="g">Pareja en la playa</span><span class="g">Paga el 60%</span><span class="g">Carrusel de beneficios</span><span class="g">Público 55–64</span><span class="r">Audience Network</span><span class="r">Retargeting por video</span><span class="r">Guest history</span></div>
+  </section>
+
+  <!-- MEDICIÓN ANTES -->
+  <section id="antes">
+    <h2>Medición antes de invertir</h2>
+    <div class="check">
+      <div><b>1 píxel</b><span>Todos los eventos en uno</span></div>
+      <div><b>Compra</b><span>Con valor, en la confirmación de pago</span></div>
+      <div><b>API + píxel</b><span>Mismo event_id · calidad de coincidencia de 8/10</span></div>
+      <div><b>CRM → Meta</b><span>Lead calificado y venta</span></div>
+      <div><b>WhatsApp</b><span>Etiquetas por etapa</span></div>
+      <div><b>UTM + nombres</b><span>En todos los anuncios</span></div>
+    </div>
+  </section>
+
+  <!-- PIPELINES -->
+  <section id="pipelines">
+    <h2>Medición después de invertir · Pipelines</h2>
+    <p class="sub">Del clic en el anuncio hasta que el negocio se gana o se pierde.</p>
+
+    <h3>Flujo A · WhatsApp y formulario → call center</h3>
+    <div class="pipe">
+      <div class="ps"><small>1</small><b>Anuncio</b><span>Meta · Google · TikTok</span></div>
+      <div class="ps"><small>2</small><b>Contacto</b><span>Conversación o formulario</span><em>Evento: Lead</em></div>
+      <div class="ps"><small>3</small><b>Asignado</b><span>Bot → agente</span><em>Responder en ≤ 5 min</em></div>
+      <div class="ps"><small>4</small><b>Contactado</b><span>3 intentos en 48 h</span><em>≥ 85% contactados</em></div>
+      <div class="ps"><small>5</small><b>Calificado</b><span>Presupuesto · fecha de viaje · decisor</span><em>Evento: QualifiedLead</em></div>
+      <div class="ps"><small>6</small><b>Propuesta</b><span>Cotización y oferta</span><em>Seguimiento a 1, 3 y 7 días</em></div>
+      <div class="end">
+        <div class="won"><b>Ganado</b><span>Pago confirmado · evento Purchase</span></div>
+        <div class="lost"><b>Perdido</b><span>Motivo: precio · no contesta · no califica · después</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px">Flujo B · Anuncio → compra directa en el sitio</h3>
+    <div class="pipe" style="grid-template-columns:repeat(5,minmax(0,1fr)) minmax(170px,1.3fr)">
+      <div class="ps"><small>1</small><b>Anuncio</b><span>Meta · Google · TikTok</span></div>
+      <div class="ps"><small>2</small><b>Visita</b><span>Landing</span><em>Evento: PageView</em></div>
+      <div class="ps"><small>3</small><b>Interés</b><span>Ve la membresía y los precios</span><em>Evento: ViewContent</em></div>
+      <div class="ps"><small>4</small><b>Pago iniciado</b><span>Datos y forma de pago</span><em>Evento: InitiateCheckout</em></div>
+      <div class="ps"><small>5</small><b>Recuperación</b><span>Retargeting 1 · WhatsApp o email si dejó datos</span><em>Ventana de 14 días</em></div>
+      <div class="end">
+        <div class="won"><b>Ganado</b><span>Compra · evento Purchase</span></div>
+        <div class="lost"><b>Perdido</b><span>Abandono después de 14 días → pasa al Flujo A</span></div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:30px">Tablero semanal</h3>
+    <div class="grid g6">
+      <div class="tile"><div class="lbl">1ª respuesta</div><div class="v">≤ 5 min</div></div>
+      <div class="tile"><div class="lbl">Contactados</div><div class="v">≥ 85%</div></div>
+      <div class="tile"><div class="lbl">Calificados</div><div class="v">≥ 35%</div></div>
+      <div class="tile"><div class="lbl">Cierre</div><div class="v">≥ 24%</div><div class="dl">de los calificados</div></div>
+      <div class="tile"><div class="lbl">Pauta por venta</div><div class="v">≤ $1,302</div></div>
+      <div class="tile"><div class="lbl">CAC</div><div class="v">≤ $5,200</div></div>
+    </div>
+  </section>
+
+  <!-- RUTA -->
+  <section id="ruta">
+    <h2>Ruta de 90 días</h2>
+    <div class="tl">
+      <div><span class="pill">Semana 1</span><b>Limpieza</b><ul><li>1 píxel con la compra validada</li><li>Pausar el retargeting actual y Audience Network</li><li>CRM y etiquetas listos</li></ul></div>
+      <div><span class="pill n">Semanas 2–4</span><b>Lanzamiento</b><ul><li>Meta: tráfico y mensajes</li><li>Google: Search</li><li>TikTok: tráfico</li></ul></div>
+      <div><span class="pill n">Mes 2</span><b>Optimización</b><ul><li>Mover presupuesto al menor costo por venta</li><li>Leads calificados a Meta</li></ul></div>
+      <div><span class="pill n">Mes 3</span><b>Escala</b><ul><li>Conversión en Meta y TikTok · PMax</li><li>+20% de presupuesto por semana en lo que esté dentro de meta</li></ul></div>
+    </div>
+  </section>
+
+  <!-- REGLAS -->
+  <section id="reglas">
+    <h2>Reglas de decisión · cada lunes</h2>
+    <div class="scroll"><table class="tbl" style="min-width:520px">
+      <tbody>
+        <tr><td>Gasta 2 veces la meta sin resultado</td><td class="l">Apagar</td></tr>
+        <tr><td>Lead a más de $200 durante 7 días</td><td class="l">Creativos nuevos</td></tr>
+        <tr><td>Frecuencia de 7 días mayor a 2.5</td><td class="l">+2 piezas</td></tr>
+        <tr><td>20% abajo de la meta con 30 o más resultados</td><td class="l">+20% de presupuesto</td></tr>
+        <tr><td>Las compras de Meta difieren más de 15% del sistema de pagos</td><td class="l">Pausar la optimización a compra</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Las tasas del embudo y las metas son supuestos de arranque basados en el histórico de la cuenta; se ajustan con los datos reales del CRM.</p>
+  </section>
+</div>
+</body>
+</html>
